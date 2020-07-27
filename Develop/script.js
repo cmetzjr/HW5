@@ -23,13 +23,14 @@ $(document).ready(function () {
 
     //compare the hour in each time block to the current hour, then set a class accordingly
     function classSetter() {
-        //get the current hour (in format matching the array)
-        var currentHour = moment().format("k");
-        //get the value of each time block
-        var hourBlock = textArea.attr("data-value");
+        //get the current hour (in 24-hr format), convert to integer
+        var currentHour = parseInt(moment().format("k"));
+        //get the hour of each time block, convert to integer
+        var hourBlock = parseInt(textArea.attr("data-value"));
         //log both values to make sure the numbers make sense
         console.log(hourBlock, currentHour);
-        //compare the hourBlock to the current time and style appropriately --> isn't working
+        console.log(typeof hourBlock, typeof currentHour);
+        //compare the hourBlock to the current time and style appropriately
         if (hourBlock > currentHour) {
             textArea.addClass("future");
         } else if (hourBlock < currentHour) {
@@ -53,13 +54,18 @@ $(document).ready(function () {
         timeBlock.append(hourSpan).append(textArea).append(saveBtn);
         //append the row to the container
         $(".container").append(timeBlock);
-        //run the function every 30 sec to compare check each time slot against the current time and apply the correct style
+        //run the function every 30 sec to compare check each time slot against the current time and apply the correct style --> i don't think it's running it every 30 sec
         window.setInterval(classSetter(), 30000);
     }
     console.log(textArea);
 
 
+    //Create an empty array to hold your inputs
+    //loop over all of the input elements, create an object and push it to the array
+    //Set your element in local storage to the new array (don't forget to stringify it)!
+
     //create an object from the textarea data-values and input texts
+
     var scheduleInputs = {
         time: textArea.attr("data-value"),
         input: textArea.text()
